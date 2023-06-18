@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Build system
+build
+CMakeUserPresets.json
+test_package/conan.lock
+test_package/conanbuildinfo.txt
+test_package/conaninfo.txt
+test_package/graph_info.json
