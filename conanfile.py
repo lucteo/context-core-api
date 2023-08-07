@@ -20,7 +20,7 @@ class ContextCoreApiRecipe(ConanFile):
     default_options = {"shared": False, "fPIC": True}
 
     # Sources are located in the same place as this recipe, copy them to the recipe
-    exports_sources = "CMakeLists.txt", "src/*", "include/*"
+    exports_sources = "CMakeLists.txt", "src/*", "test/*", "include/*"
 
     def validate(self):
         check_min_cppstd(self, "17")

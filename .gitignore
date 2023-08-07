@@ -33,6 +33,7 @@
 
 # IDE
 .vscode
+CMakePresets.json
 
 # Build system
 build
