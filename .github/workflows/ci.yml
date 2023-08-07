@@ -10,6 +10,7 @@ jobs:
         with:
           checks: build test install warnings
           cc: gcc
+          conanflags: -o with_tests=True
           cmakeflags: -DCMAKE_TOOLCHAIN_FILE=/github/workspace/build/Release/generators/conan_toolchain.cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release
           ctestflags: --test-dir /tmp/build/test
   clang-format:

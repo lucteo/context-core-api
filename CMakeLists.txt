@@ -16,7 +16,9 @@ target_compile_options(context_core_api PUBLIC
      $<$<CXX_COMPILER_ID:MSVC>:
           /W4>)
 
-message(STATUS "Building with tests")
-add_subdirectory(test)
+message(STATUS "With tests: ${WITH_TESTS}")
+if(${WITH_TESTS})
+     add_subdirectory(test)
+endif()
 
 install(TARGETS context_core_api)

@@ -16,11 +16,11 @@ class ContextCoreApiRecipe(ConanFile):
 
     # Binary configuration
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = {"shared": False, "fPIC": True}
+    options = {"shared": [True, False], "fPIC": [True, False], "with_tests": [True, False]}
+    default_options = {"shared": False, "fPIC": True, "with_tests": False}
 
     # Sources are located in the same place as this recipe, copy them to the recipe
-    exports_sources = "CMakeLists.txt", "src/*", "test/*", "include/*"
+    exports_sources = "CMakeLists.txt", "src/*", "include/*"
 
     def validate(self):
         check_min_cppstd(self, "17")
@@ -44,6 +44,7 @@ class ContextCoreApiRecipe(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
         tc = CMakeToolchain(self)
+        tc.variables["WITH_TESTS"] = self.options.with_tests
         tc.generate()
 
     def build(self):
@@ -59,7 +60,7 @@ class ContextCoreApiRecipe(ConanFile):
         self.cpp_info.libs = ["context_core_api"]
 
 # from <root>/build/ directory, run:
-#   > conan install .. --build=missing -s compiler.cppstd=17
+#   > conan install .. --build=missing -s compiler.cppstd=17 -o with_tests=True
 #
 # then:
 #   > conan build .. -s compiler.cppstd=17
@@ -70,3 +71,5 @@ class ContextCoreApiRecipe(ConanFile):
 #
 # or, to run everything in one go:
 #   > conan create .. --build=missing -s compiler.cppstd=17
+#
+# Note: changing `with_tests` value requires deleting the temporary build files.
