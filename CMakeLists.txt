@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.24)
 project(context_core_api CXX)
 
 find_package(Boost COMPONENTS context CONFIG REQUIRED)
@@ -9,12 +9,8 @@ target_compile_features(context_core_api PUBLIC cxx_std_17)
 target_link_libraries(context_core_api PUBLIC Boost::context)
 set_target_properties(context_core_api PROPERTIES PUBLIC_HEADER "include/context_core_api.h")
 
-# Turn all warnings
-target_compile_options(context_core_api PUBLIC
-     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
-          -Wall>
-     $<$<CXX_COMPILER_ID:MSVC>:
-          /W4>)
+# Turn on warning-as-error
+set_property(TARGET context_core_api PROPERTY COMPILE_WARNING_AS_ERROR ON)
 
 message(STATUS "With tests: ${WITH_TESTS}")
 if(${WITH_TESTS})
