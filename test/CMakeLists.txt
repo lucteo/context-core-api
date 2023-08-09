@@ -1,6 +1,6 @@
 # The source files for the tests
 set(sourceFiles
-"test_smoke.cpp"
+"test_context.cpp"
 )
 
 find_package(Catch2 REQUIRED CONFIG)
