@@ -9,7 +9,7 @@ struct stack_memory {
   }
   ~stack_memory() { free(data_); }
 
-  void* end() const { return data_; }
+  void* end() const { return data_ + size_; }
   size_t size() const { return size_; }
 
 private:
@@ -25,7 +25,7 @@ TEST_CASE("Can create fcontexts, without crashing", "[context_core_api_make_fcon
   };
 
   // Act
-  auto res = context_core_api_make_fcontext(stack.end(), stack.size(), &t::context_fun);
+  (void) context_core_api_make_fcontext(stack.end(), stack.size(), &t::context_fun);
 
   // Assert: if we are here, we didn't crash
   REQUIRE(true);
@@ -64,7 +64,7 @@ TEST_CASE("Function passed to context_core_api_make_fcontext is executed",
 
   // Act
   auto ctx = context_core_api_make_fcontext(stack.end(), stack.size(), &t::context_fun);
-  auto r = context_core_api_jump_fcontext(ctx, &called);
+  (void) context_core_api_jump_fcontext(ctx, &called);
 
   // Assert
   REQUIRE(called);
@@ -104,7 +104,7 @@ TEST_CASE("Can jump into a context, in a loop", "[context_core_api_jump_fcontext
         *reinterpret_cast<int*>(param.data) += 1;
 
         // Repeatedly jump back to the parent context
-        auto r = context_core_api_jump_fcontext(param.fctx, nullptr);
+        auto r = context_core_api_jump_fcontext(ctx, nullptr);
         ctx = r.fctx;
       }
     }
@@ -127,7 +127,6 @@ TEST_CASE("context_core_api_jump_fcontext can pass data around",
           "[context_core_api_jump_fcontext]") {
   // Arrange
   stack_memory stack;
-  bool called = false;
   struct t {
     static void context_fun(context_core_api_transfer_t param) {
       // Check the value passed by main control flow
