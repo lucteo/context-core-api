@@ -54,8 +54,9 @@ struct context_core_api_transfer_t {
 ///   - return `suspended_ctx`
 ///
 /// @sa context_core_api_fcontext_t, context_core_api_jump_fcontext
-context_core_api_fcontext_t context_core_api_make_fcontext(void* sp, size_t size,
-                                                           void (*fn)(context_core_api_transfer_t));
+context_core_api_fcontext_t
+context_core_api_make_fcontext(void* sp, size_t size,
+                               void (*fn)(struct context_core_api_transfer_t));
 
 /// @brief Jump to the given context.
 ///
@@ -79,8 +80,8 @@ context_core_api_fcontext_t context_core_api_make_fcontext(void* sp, size_t size
 /// data will be returned at the point of resumption.
 ///
 /// @sa context_core_api_fcontext_t, context_core_api_make_fcontext, context_core_api_ontop_fcontext
-context_core_api_transfer_t context_core_api_jump_fcontext(context_core_api_fcontext_t const to,
-                                                           void* vp);
+struct context_core_api_transfer_t
+context_core_api_jump_fcontext(context_core_api_fcontext_t const to, void* vp);
 
 /// @brief Execute the content of a given function on top of a given context.
 ///
@@ -108,9 +109,9 @@ context_core_api_transfer_t context_core_api_jump_fcontext(context_core_api_fcon
 /// It is expected that the context of the current resumption point will be eventually resumed.
 ///
 /// @sa context_core_api_jump_fcontext, context_core_api_make_fcontext
-context_core_api_transfer_t
-context_core_api_ontop_fcontext(context_core_api_fcontext_t const to, void* vp,
-                                context_core_api_transfer_t (*fn)(context_core_api_transfer_t));
+struct context_core_api_transfer_t context_core_api_ontop_fcontext(
+    context_core_api_fcontext_t const to, void* vp,
+    struct context_core_api_transfer_t (*fn)(struct context_core_api_transfer_t));
 
 #ifdef __cplusplus
 }

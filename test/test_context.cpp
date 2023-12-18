@@ -25,7 +25,7 @@ TEST_CASE("Can create fcontexts, without crashing", "[context_core_api_make_fcon
   };
 
   // Act
-  (void) context_core_api_make_fcontext(stack.end(), stack.size(), &t::context_fun);
+  (void)context_core_api_make_fcontext(stack.end(), stack.size(), &t::context_fun);
 
   // Assert: if we are here, we didn't crash
   REQUIRE(true);
@@ -64,7 +64,7 @@ TEST_CASE("Function passed to context_core_api_make_fcontext is executed",
 
   // Act
   auto ctx = context_core_api_make_fcontext(stack.end(), stack.size(), &t::context_fun);
-  (void) context_core_api_jump_fcontext(ctx, &called);
+  (void)context_core_api_jump_fcontext(ctx, &called);
 
   // Assert
   REQUIRE(called);
