@@ -1,6 +1,7 @@
 # The source files for the tests
 set(sourceFiles
 "test_context.cpp"
+"test_c_compilation.c"
 )
 
 find_package(Catch2 REQUIRED CONFIG)

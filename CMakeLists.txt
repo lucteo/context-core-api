@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(context_core_api CXX)
+project(context_core_api CXX C)
 
 find_package(Boost COMPONENTS context CONFIG REQUIRED)
 
