@@ -36,6 +36,7 @@
 CMakePresets.json
 
 # Build system
+.build
 build
 CMakeUserPresets.json
 test_package/conan.lock
