@@ -10,8 +10,6 @@ jobs:
         with:
           checks: build test install warnings
           cc: gcc
-          conanflags: -o with_tests=True
-          cmakeflags: -DCMAKE_TOOLCHAIN_FILE=/github/workspace/build/Release/generators/conan_toolchain.cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release
           ctestflags: --test-dir /tmp/build/test
   clang-format:
     runs-on: ubuntu-latest
@@ -20,12 +18,4 @@ jobs:
       - uses: docker://lucteo/action-cxx-toolkit.v9.main:latest
         with:
           checks: clang-format
-          clangformatdirs: src test_package/src
-  conan-package:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: docker://lucteo/action-cxx-toolkit.v9.main:latest
-        with:
-          checks: build
-          build_command: conan profile detect && conan create /github/workspace/ --build=missing
+          clangformatdirs: src test
