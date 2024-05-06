@@ -139,7 +139,6 @@ TEST_CASE("context_core_api_jump_fcontext can pass data around",
 
   // Act: send value 1, expect to get back value 2
   auto r = context_core_api_jump_fcontext(ctx, reinterpret_cast<void*>(uintptr_t(1)));
-  printf("prev: %p\n", r.fctx);
 
   // Assert
   REQUIRE(reinterpret_cast<uintptr_t>(r.data) == 2);
