@@ -12,14 +12,13 @@ startTest "GCC compilation"
 BUILDDIR="build/gh-checks/gcc/"
 mkdir -p "${CURDIR}/../../${BUILDDIR}"
 
-# Remove any cached version of conan profiles
-rm -fR ${CURDIR}/../../build/gh-checks/conan-cache/profiles
-
 # Run docker with action-cxx-toolkit to check our code
 docker run ${DOCKER_RUN_PARAMS} \
     -e INPUT_BUILDDIR="/github/workspace/${BUILDDIR}" \
     -e INPUT_CC='gcc' \
     -e INPUT_CHECKS='build test install warnings' \
+    -e INPUT_CMAKEFLAGS="-DCMAKE_BUILD_TYPE=Release -DWITH_TESTS=On" \
+    -e INPUT_CTESTFLAGS="--test-dir /github/workspace/${BUILDDIR}/test" \
     $IMAGENAME
 status=$?
 printStatus $status

@@ -10,6 +10,7 @@ jobs:
         with:
           checks: build test install warnings
           cc: gcc
+          cmakeflags: -DCMAKE_BUILD_TYPE=Release -DWITH_TESTS=On
           ctestflags: --test-dir /tmp/build/test
   clang-format:
     runs-on: ubuntu-latest
